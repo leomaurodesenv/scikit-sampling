@@ -1,0 +1,35 @@
+name: "Release"
+run-name: Publishing on "${{ github.ref }}" by "${{ github.actor }}"
+on:
+  release:
+    type: published
+
+jobs:
+  # Run build
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv run semantic-release version
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+  # Run deploy
+  deploy:
+    needs:
+      - build
+    runs-on: ubuntu-22.04
+    env:
+      UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - run: uv sync --all-extras
+      - run: uv publish --token $UV_PUBLISH_TOKEN
