@@ -637,7 +637,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "scipy", specifier = ">=1.15.0,<2" },
-    { name = "setuptools", marker = "extra == 'build'", specifier = ">=80.9.0" },
+    { name = "setuptools", marker = "extra == 'build'", specifier = ">=80.9.0,<90" },
 ]
 provides-extras = ["build"]
 
