@@ -63,3 +63,12 @@ build_command = """
   git add uv.lock
   uv build
 """
+
+[tool.semantic_release.branches.main]
+match = "(main|master)"
+prerelease = false
+
+[tool.semantic_release.branches.feature]
+match = "feat/.+"
+prerelease = true
+prerelease_token = "alpha"
