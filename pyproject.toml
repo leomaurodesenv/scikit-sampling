@@ -32,9 +32,11 @@ dev = [
     "commitizen>=4.8.3,<5",
     "pre-commit>=4.2.0,<5",
     "pytest>=8.4.1,<9",
+    "pytest-cov>=6.2.1,<7",
 ]
 
 [tool.pytest.ini_options]
 pythonpath = [
   "."
 ]
+addopts = "--cov=sksampling --cov-report term-missing"
