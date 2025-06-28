@@ -1,0 +1,14 @@
+[project]
+name = "scikit-sampling"
+version = "0.1.0"
+description = "Statistical dataset sampling in Python"
+url = "https://github.com/leomaurodesenv/scikit-sampling"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+]
