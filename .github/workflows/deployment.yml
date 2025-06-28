@@ -1,0 +1,63 @@
+name: "Deployment"
+run-name: Running on "${{ github.ref }}" by "${{ github.actor }}"
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  # Run pre-commit hooks
+  pre-commit:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv run pre-commit run --all-files
+  # Run tests
+  tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv run pytest
+  # Run build
+  build:
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - pre-commit
+      - tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+  # Run deploy
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - build
+    runs-on: ubuntu-22.04
+    env:
+      UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - run: uv sync --all-extras
+      - run: uv publish --token $UV_PUBLISH_TOKEN
