@@ -36,6 +36,7 @@ tracker = "https://github.com/leomaurodesenv/scikit-sampling/issues"
 build = [
     "setuptools>=80.9.0,<90",
     "uv>=0.7.12,<0.8",
+    "python-semantic-release~=10.0",
 ]
 
 [dependency-groups]
