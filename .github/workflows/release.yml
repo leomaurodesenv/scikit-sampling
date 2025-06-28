@@ -33,9 +33,6 @@ jobs:
           path: dist/
       - run: uv sync --all-extras
       - run: uv publish --token $UV_PUBLISH_TOKEN
-      - name: commit CHANGELOG
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          branch: ${{ github.event.release.target_commitish }}
-          commit_message: "update: changelog"
-          file_pattern: CHANGELOG.md
+          commit_message: "release: bump version and generate changelog"
