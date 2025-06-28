@@ -1,11 +1,11 @@
 [project]
 name = "scikit-sampling"
 license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
 version = "0.1.0"
 requires-python = ">=3.10"
 description = "A set of python modules for dataset sampling"
-url = "https://github.com/leomaurodesenv/scikit-sampling"
 authors = [
   {name = "Leonardo Moraes", email = "leomaurodesenv@users.noreply.github.com"}
 ]
@@ -15,7 +15,6 @@ classifiers=[
   "Programming Language :: Python",
   "Topic :: Scientific/Engineering",
   "Development Status :: 4 - Beta",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
