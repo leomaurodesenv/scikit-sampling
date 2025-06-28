@@ -2,11 +2,12 @@ name: "Release"
 run-name: Publishing on "${{ github.ref }}" by "${{ github.actor }}"
 on:
   release:
-    type: published
+    type: released
 
 jobs:
   # Run build
   build:
+    if: "!github.event.release.prerelease"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
