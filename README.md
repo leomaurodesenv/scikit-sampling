@@ -2,7 +2,7 @@
 
 [![GitHub](https://img.shields.io/static/v1?label=Code&message=GitHub&color=blue&style=flat-square)](https://github.com/leomaurodesenv/scikit-sampling)
 [![MIT license](https://img.shields.io/static/v1?label=License&message=MIT&color=blue&style=flat-square)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/leomaurodesenv/scikit-sampling/continuous-integration.yml?label=Build&style=flat-square)](https://github.com/leomaurodesenv/scikit-sampling/actions/workflows/continuous-integration.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/leomaurodesenv/scikit-sampling/deployment.yml?label=Build&style=flat-square)](https://github.com/leomaurodesenv/scikit-sampling/actions/workflows/deployment.yml)
 
 
 Scikit-Sampling (or `sksampling`) is a Python library for dataset sampling techniques. It provides a unified API for common sampling strategies, making it easy to integrate into your data science and machine learning workflows.
