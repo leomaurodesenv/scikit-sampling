@@ -12,7 +12,7 @@ def _get_z_score(confidence_level: float) -> float:
     Returns:
         The Z-score for the given confidence level.
     """
-    return st.norm.ppf(1-(1-confidence_level)/2)
+    return st.norm.ppf(1 - (1 - confidence_level) / 2)
 
 
 def sample_size(
