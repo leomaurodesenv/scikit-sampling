@@ -1,5 +1,5 @@
-name: "Continuous Integration"
-run-name: Running tests on "${{ github.ref }}" by "${{ github.actor }}"
+name: "Deployment"
+run-name: Running on "${{ github.ref }}" by "${{ github.actor }}"
 on:
   push:
     branches:
@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync
+      - run: uv sync --all-extras
       - run: uv run pre-commit run --all-files
   # Run tests
   tests:
@@ -26,5 +26,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync
+      - run: uv sync --all-extras
       - run: uv run pytest
+  # Run build
+  build:
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - pre-commit
+      - tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-extras
+      - run: uv build
