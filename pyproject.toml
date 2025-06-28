@@ -1,14 +1,23 @@
 [project]
 name = "scikit-sampling"
 version = "0.1.0"
-description = "Statistical dataset sampling in Python"
+requires-python = ">=3.10"
+description = "A set of python modules for dataset sampling"
 url = "https://github.com/leomaurodesenv/scikit-sampling"
 readme = "README.md"
-requires-python = ">=3.10"
 license = "MIT"
+
+authors = [
+  {name = "Leonardo Moraes", email = "leomaurodesenv@users.noreply.github.com"}
+]
+maintainers = [
+  {name = "Leonardo Moraes", email = "leomaurodesenv@users.noreply.github.com"}
+]
+
 dependencies = []
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.2.0",
+    "commitizen~=4.8.3",
+    "pre-commit~=4.2.0",
 ]
