@@ -29,3 +29,59 @@ def test_z_score():
     assert _get_z_score(0.95) == pytest.approx(1.96, abs=error_margin)
     # Z-score for 99% confidence level should be approximately 2.58
     assert _get_z_score(0.99) == pytest.approx(2.58, abs=error_margin)
+
+
+def test_weighted_sampler_basic():
+    from sksampling import WeightedSampler
+    data = ['a', 'b', 'c']
+    weights = [0.1, 0.8, 0.1]
+    sampler = WeightedSampler(data, weights)
+    sample = sampler.sample(n=1000, replace=True, random_state=123)
+    # 'b' should appear much more frequently
+    b_count = (sample == 'b').sum()
+    assert b_count > 700
+
+
+def test_weighted_sampler_equal_weights():
+    from sksampling import WeightedSampler
+    data = [1, 2, 3, 4]
+    weights = [1, 1, 1, 1]
+    sampler = WeightedSampler(data, weights)
+    sample = sampler.sample(n=1000, replace=True, random_state=1)
+    # All items should appear roughly equally
+    counts = [ (sample == i).sum() for i in data ]
+    for c in counts:
+        assert 200 < c < 300
+
+
+def test_weighted_sampler_zero_weights():
+    from sksampling import WeightedSampler
+    data = [1, 2, 3]
+    weights = [1, 0, 0]
+    sampler = WeightedSampler(data, weights)
+    sample = sampler.sample(n=100, replace=True, random_state=0)
+    assert all(x == 1 for x in sample)
+
+
+def test_weighted_sampler_invalid_weights():
+    from sksampling import WeightedSampler
+    import pytest
+    # Negative weights
+    with pytest.raises(ValueError):
+        WeightedSampler([1,2], [1,-1])
+    # All zero weights
+    with pytest.raises(ValueError):
+        WeightedSampler([1,2], [0,0])
+    # Length mismatch
+    with pytest.raises(ValueError):
+        WeightedSampler([1,2,3], [1,2])
+
+
+def test_weighted_sampler_no_replace():
+    from sksampling import WeightedSampler
+    data = ['x', 'y', 'z']
+    weights = [0.2, 0.5, 0.3]
+    sampler = WeightedSampler(data, weights)
+    sample = sampler.sample(n=3, replace=False, random_state=42)
+    assert set(sample) <= set(data)
+    assert len(set(sample)) == 3

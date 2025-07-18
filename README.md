@@ -21,16 +21,30 @@ pip install scikit-sampling
 
 - `sample_size`: Computes the ideal sample size based confidence level and interval.
 
-## Usage
+## Weighted Sampling
 
-`sksampling` follows the `scikit-learn` API, making it intuitive to use.
+The `WeightedSampler` class allows you to sample data points with probabilities proportional to user-specified weights. This is useful for handling imbalanced datasets or prioritizing certain observations.
+
+### Example Usage
 
 ```python
-from sksampling import sample_size
+from sksampling import WeightedSampler
 
-# Example usage
-population_size: int = 100_000
-confidence_level: float = 0.95
-confidence_interval: float = 0.02
-sample_size(population_size, confidence_level, confidence_interval) # approx 2345
+data = ['a', 'b', 'c', 'd']
+weights = [0.1, 0.2, 0.6, 0.1]
+sampler = WeightedSampler(data, weights)
+sample = sampler.sample(n=3, replace=True, random_state=42)
+print(sample)
 ```
+
+- `data`: Sequence of items to sample from.
+- `weights`: Sequence of non-negative weights (same length as data).
+- `n`: Number of samples to draw.
+- `replace`: Whether to sample with replacement (default: True).
+- `random_state`: Optional seed for reproducibility.
+
+The probability of each item being selected is proportional to its weight.
+
+## Usage
+
+`sksampling` follows the `
