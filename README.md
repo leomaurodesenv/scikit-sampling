@@ -19,18 +19,13 @@ pip install scikit-sampling
 
 `sksampling` offers a range of sampling methods, including:
 
-- `sample_size`: Computes the ideal sample size based confidence level and interval.
+- `sample_size`: Computes the ideal sample size based on confidence level and margin of error.
+- `confidence_level`: Calculates the confidence level for a given sample size.
 
-## Usage
+## Documentation
 
-`sksampling` follows the `scikit-learn` API, making it intuitive to use.
+For detailed information on the library's functions, including parameters and usage examples, please see our documentation in the `docs/` folder.
 
-```python
-from sksampling import sample_size
+A good place to start is the 📑 [Estimation Functions Guide](docs/estimation.md).
 
-# Example usage
-population_size: int = 100_000
-confidence_level: float = 0.95
-confidence_interval: float = 0.02
-sample_size(population_size, confidence_level, confidence_interval) # approx 2345
-```
+We are continuously working on expanding our documentation to cover all features.
