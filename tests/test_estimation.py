@@ -1,5 +1,5 @@
 import pytest
-from sksampling import _get_z_score, sample_size
+from sksampling.estimation import _get_z_score, sample_size
 
 
 def test_sample_size_basic():
