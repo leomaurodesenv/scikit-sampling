@@ -49,3 +49,14 @@ def test_confidence_level():
     assert confidence_level(385, 1_000_000, 0.05) == pytest.approx(
         0.95, abs=error_margin
     )
+
+
+def test_confidence_level_edge_cases():
+    """
+    Tests edge cases for the confidence_level function.
+    """
+    # Test exception with sample_size >= population_size
+    assert confidence_level(10_000, 1000, 0.02) == 1.0
+    # Test case where z_squared would be negative due to invalid inputs
+    # (e.g., negative sample_size), which should return a confidence level of 0.0.
+    assert confidence_level(-1, 100, 0.02) == 0.0
